@@ -8,6 +8,7 @@
 #include<arpa/inet.h>
 
 #include "utils.h"
+#include "parser.h"
 
 /*This function starts the server, return socket file descriptor*/
 int serverStart(char *servip, int port) {
@@ -49,6 +50,12 @@ void serverPackageHandler(int cfd, char *packet) {
 
     sprintf(s, "Server: %d Got:\n%s\n", cfd, packet);
     logWrite(s);
+
+    /*parsing tests*/
+    char x[MAX_CHAR_SIZE];
+    parseGetFirstLine(x, packet);
+    printf("First Line is: %s\n", x);
+
 }
 
 /* Listen for connection and serve them*/

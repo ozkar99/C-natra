@@ -1,3 +1,6 @@
+#ifndef __UTILSH__
+#define __UTILSH__
+
 #include<stdlib.h>
 
 #define MAX_CHAR_SIZE 1024
@@ -34,3 +37,5 @@ int serverSendHTML(int cfd, char *html) {
     write(cfd, resp, strlen(resp));
     return 0;
 }
+
+#endif
