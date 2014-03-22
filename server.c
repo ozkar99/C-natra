@@ -52,10 +52,9 @@ void serverPackageHandler(int cfd, char *packet) {
     logWrite(s);
 
     /*parsing tests*/
-    char x[MAX_CHAR_SIZE];
-    parseGetFirstLine(x, packet);
-    printf("First Line is: %s\n", x);
-
+    printf("Parsing Test:\n");
+    struct URI u = parseTokenize(packet);
+    printf("Method: %s\tRequest: %s\tProtocol: %s\n", u.method, u.request, u.protocol);
 }
 
 /* Listen for connection and serve them*/
