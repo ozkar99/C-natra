@@ -39,7 +39,8 @@ void serverPackageHandler(int cfd, char *packet) {
     serverSendHTML(cfd, "<html><h1>DEFAULT SHIT</H1> \
                             <body> \
                                 <form name=\"nameinput\" method=\"post\"> \
-                                    <input type=\"text\" name=\"user\" /> \
+                                    USER:<input type=\"text\" name=\"user\" > \
+                                    ID:<input type=\"text\" name=\"id\" > \
                                     <input type=\"submit\" value=\"Submit\" > \
                                 </form> \
                             </body> \
