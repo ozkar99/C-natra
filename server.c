@@ -9,9 +9,6 @@
 
 #include "utils.h"
 
-#define MAX_CHAR_SIZE 1024
-#define MAX_PACKET_SIZE 512
-
 /*This function starts the server, return socket file descriptor*/
 int serverStart(char *servip, int port) {
  
@@ -36,26 +33,17 @@ int serverStart(char *servip, int port) {
     return sockfd;
 }
 
-
-/*This function sends html to the sockfd server*/
-int serverSendHTML(int cfd, char *html) {
-
-    char *ok = "HTTP/1.0 200\r\nContent-type:text/html\r\n\r\n";
-
-    char resp[MAX_CHAR_SIZE];
-    strcpy(resp, ok);
-    strcat(resp, html);
-
-    /*send to the server*/
-    write(cfd, resp, strlen(resp));
-    return 0;
-}
-
-
 /* Handle the package */
 void serverPackageHandler(int cfd, char *packet) {
     char s[MAX_CHAR_SIZE];
-    serverSendHTML(cfd, "<html><h1>DEFAULT SHIT</H1></HTML>");
+    serverSendHTML(cfd, "<html><h1>DEFAULT SHIT</H1> \
+                            <body> \
+                                <form name=\"nameinput\" method=\"post\"> \
+                                    <input type=\"text\" name=\"user\" /> \
+                                    <input type=\"submit\" value=\"Submit\" > \
+                                </form> \
+                            </body> \
+                        </HTML>");
     sprintf(s, "Server: %d Got:\n%s\n", cfd, packet);
     logWrite(s);
 }
