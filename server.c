@@ -1,3 +1,5 @@
+#ifndef __SERVERH__
+#define __SERVERH__
 /* Moreno Garza Oscar
 *  This is the web-server in an effor to port a small set of the Sinatra framework for ruby into C.
 */
@@ -82,3 +84,5 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+
+#endif
