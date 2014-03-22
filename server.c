@@ -36,6 +36,7 @@ int serverStart(char *servip, int port) {
 /* Handle the package */
 void serverPackageHandler(int cfd, char *packet) {
     char s[MAX_CHAR_SIZE];
+
     serverSendHTML(cfd, "<html><h1>DEFAULT SHIT</H1> \
                             <body> \
                                 <form name=\"nameinput\" method=\"post\"> \
@@ -45,6 +46,7 @@ void serverPackageHandler(int cfd, char *packet) {
                                 </form> \
                             </body> \
                         </HTML>");
+
     sprintf(s, "Server: %d Got:\n%s\n", cfd, packet);
     logWrite(s);
 }
