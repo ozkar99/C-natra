@@ -40,23 +40,23 @@ int serverStart(char *servip, int port) {
 void serverPackageHandler(int cfd, char *packet) {
     char s[MAX_CHAR_SIZE];
 
-    serverSendHTML(cfd, "<html><h1>DEFAULT SHIT</H1> \
-                            <body> \
-                                <form name=\"nameinput\" method=\"post\"> \
-                                    USER:<input type=\"text\" name=\"user\" > \
-                                    ID:<input type=\"text\" name=\"id\" > \
-                                    <input type=\"submit\" value=\"Submit\" > \
-                                </form> \
-                            </body> \
-                        </HTML>");
-
+    fflush(stdin);
     sprintf(s, "Server: %d Got:\n%s\n", cfd, packet);
     logWrite(s);
 
+    struct URI u = parseURI(packet);
+
+    if (u.method == "GET") {
+        serverSendHTML(cfd, "I GOT A GET");
+    } else if (u.method == "POST") {
+        serverSendHTML(cfd, "I GOT A POST");
+    } else {
+        serverSendHTML(cfd, "<html><h1>DEFAULT SHIT</H1>");
+    }
+
     /*parsing tests*/
-    printf("Parsing Test:\n");
-    struct URI u = parseTokenize(packet);
-    printf("Method: %s\tRequest: %s\tProtocol: %s\n", u.method, u.request, u.protocol);
+    //printf("\n\n\n\nParsing Test in server.c:\n");
+    //printf("Method: %s\nRequestPath: %s\nRequestArgs: %s\nProtocol: %s\n", u.method, u.req.path, u.req.arg, u.protocol);
 }
 
 /* Listen for connection and serve them*/
