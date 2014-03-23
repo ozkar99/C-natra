@@ -84,16 +84,22 @@ int parseSplitRequest(struct URI *u) {
     char pathStr[MAX_CHAR_SIZE];
     char argStr[MAX_CHAR_SIZE];
 
-    /* default values, if we get ? we split them*/
-    strcpy(u->req.path[0], u->request);
-    strcpy(u->req.arg[0], "null");
-
+    
     if ( parseContainsArgs(u->request) ) {
         /*split the ? first if we got them*/
         char *path = strtok(u->request, separator);
         char *args = strtok(NULL, separator);
         strcpy(u->req.path[0], path);
         strcpy(u->req.arg[0], args);
+
+        printf("PARSE SPLIT REQUEST:\n");
+        printf("path: %s\n", path);
+        printf("args: %s\n", args);
+    
+    } else {
+        /*default values*/
+        strcpy(u->req.path[0], u->request);
+        strcpy(u->req.arg[0], "null");
     }
 
     return 1;
