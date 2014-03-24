@@ -91,15 +91,10 @@ int parseSplitRequest(struct URI *u) {
         char *args = strtok(NULL, separator);
         strcpy(u->req.path[0], path);
         strcpy(u->req.arg[0], args);
-
-        printf("PARSE SPLIT REQUEST:\n");
-        printf("path: %s\n", path);
-        printf("args: %s\n", args);
-    
     } else {
         /*default values*/
         strcpy(u->req.path[0], u->request);
-        strcpy(u->req.arg[0], "null");
+        strcpy(u->req.arg[0], "null\0");
     }
 
     return 1;
@@ -108,18 +103,19 @@ int parseSplitRequest(struct URI *u) {
 /*sanitize the path and arguments*/
 int parseSanitizeUri(struct URI *u) {
 
-    int lastPath = strlen(u->req.path[0]) -1;
-    int lastArg = strlen(u->req.arg[0]) -1;
+    int lastPath = strlen(u->req.path[0]) - 1;
+    int lastArg = strlen(u->req.arg[0]) - 1;
 
     /*Insert always the trailing slash*/
-    if (u->req.path[0][lastPath] != '/' && u->req.path[0] != "/") 
+    if (u->req.path[0][lastPath] != '/' && u->req.path[0] != "/") { 
         u->req.path[0][lastPath+1] = '/';
-
-    /*Remove a trailing &*/
-    if(u->req.arg[0] != "null" && u->req.path[0][lastArg] == '&') {
-        printf("not null and with a & at the end...\n");
-        u->req.path[0][lastArg] = '\0'; 
     }
+
+    /*Remove the trailing &*/
+    if ( strcmp(u->req.arg[0], "null") != 0 && u->req.arg[0][lastArg] == '&') {                
+        u->req.arg[0][lastArg] = '\0';  
+    }
+
 
     return 1;
 }
@@ -130,12 +126,14 @@ int parseRequest(struct URI *u) {
     char *pathToken = "/";
     char *argToken = "&";
 
-    /*handle trailing slash and trailing &*/
-    parseSanitizeUri(u);
 
-    /*todo, split the path and arg in each field*/
+    /*todo, split the path and arg in each field*/ 
+
+
     return 1;
 }
+
+
 
 /*parse the uri, main entry point*/
 struct URI parseURI(char *s) {
@@ -152,6 +150,10 @@ struct URI parseURI(char *s) {
     /*split the request in path and args*/
     if (status == 1) 
         status = parseSplitRequest(&uri);
+
+    /*sanitize the uri*/
+    if (status ==1)
+        status = parseSanitizeUri(&uri);
 
     /*split the reqeust into path[] and arg[]*/
     if(status ==1)
