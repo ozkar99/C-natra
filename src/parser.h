@@ -25,6 +25,7 @@ struct URI {
     char request[MAX_CHAR_SIZE];//request
     char method[MAX_CHAR_SIZE]; //max value lenght is 'delete'
     char protocol[MAX_CHAR_SIZE]; //either HTTP/1.1 or HTTP/1.0
+    char postVals[MAX_CHAR_SIZE]; //value to store the post arguments.
     struct URI_REQUEST req; //request path and args.
 };
 
@@ -84,7 +85,9 @@ int parseSplitRequest(struct URI *u) {
     char pathStr[MAX_CHAR_SIZE];
     char argStr[MAX_CHAR_SIZE];
 
-    
+/* GET*/
+if( strcmp(u->method, "GET") == 0 ) {
+ 
     if ( parseContainsArgs(u->request) ) {
         /*split the ? first if we got them*/
         char *path = strtok(u->request, separator);
@@ -97,7 +100,15 @@ int parseSplitRequest(struct URI *u) {
         strcpy(u->req.arg[0], "null\0");
     }
 
+/*POST*/
+} else if ( strcmp(u->method, "POST") == 0) {
+    /*post code here*/
+} else {
+    /*not post neither get code here*/
+}
+
     return 1;
+
 }
 
 /*sanitize the path and arguments*/
@@ -126,13 +137,10 @@ int parseRequest(struct URI *u) {
     char *pathToken = "/";
     char *argToken = "&";
 
-
     /*todo, split the path and arg in each field*/ 
-
 
     return 1;
 }
-
 
 
 /*parse the uri, main entry point*/
