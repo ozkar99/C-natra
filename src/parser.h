@@ -90,9 +90,8 @@ int parseSplitRequest(struct URI *u) {
     char pathStr[MAX_CHAR_SIZE];
     char argStr[MAX_CHAR_SIZE];
 
-/* GET*/
-if( strcmp(u->method, "GET") == 0 ) {
  
+    /* first split the request via args and path */
     if ( parseContainsArgs(u->request) ) {
         /*split the ? first if we got them*/
         char *path = strtok(u->request, separator);
@@ -105,12 +104,16 @@ if( strcmp(u->method, "GET") == 0 ) {
         strcpy(u->req.arg[0], "null\0");
     }
 
-/*POST*/
-} else if ( strcmp(u->method, "POST") == 0) {
-    /*post code here*/
-} else {
+    /* GET*/
+    if( strcmp(u->method, "GET") == 0 ) {
+    /* get code handling here */
+    /*POST*/
+    } else if ( strcmp(u->method, "POST") == 0) {
+    /* post code here */
+    /* args are not on the request but somewhere else on the http-request */
+    } else {
     /*not post neither get code here*/
-}
+    }
 
     return 1;
 
@@ -145,6 +148,7 @@ int parseRequest(struct URI *u) {
     char *pathToken = "/";
     char *argToken = "&";
 
+    /* PATH PART*/
     //make copy so we leave u->req.path[0] and u->req.arg[0]/u->req.val[0] alone.
     char reqPath[MAX_CHAR_SIZE];
     strcpy(reqPath, u->req.path[0]);
@@ -155,13 +159,12 @@ int parseRequest(struct URI *u) {
 
     int i=1; //starting position for URI.args
     while (currp) {
-           printf("\n\tCurrent Token: %s\tNumber: %d\n", currp, i);
-
-           strcpy(u->req.path[i], currp);  //copy the rest at each / interval.
+           strcpy(u->req.path[i], currp);  //copy the current token at each '/' interval.
            i++; //increment the path.
            currp = strtok(NULL, pathToken); //get next token.
-    
     }
+
+    /* ARGS PART */
 
     printf("END: parseRequest\n"); 
     return 1;
