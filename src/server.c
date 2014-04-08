@@ -46,9 +46,9 @@ void serverPackageHandler(int cfd, char *packet) {
 
     struct URI u = parseURI(packet);
 
-    if (u.method == "GET") {
+    if ( strcmp(u.method, "GET") == 0){
         serverSendHTML(cfd, "I GOT A GET");
-    } else if (u.method == "POST") {
+    } else if ( strcmp(u.method, "POST") ==0 ) {
         serverSendHTML(cfd, "I GOT A POST");
     } else {
         serverSendHTML(cfd, "<html><h1>DEFAULT SHIT</H1>");

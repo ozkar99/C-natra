@@ -1,4 +1,3 @@
-
 /*This will parse the url*/
 #ifndef __PARSERH__
 #define __PARSERH__
@@ -11,12 +10,18 @@
 #define MAX_ARGS_SIZE 50
 #define MAX_PATH_SIZE 50
 
-/*structure to split the request into path[] and args[]*/
-/*path[0] contains the unsplitted path*/
-/*args[0] contains the unsplitted arguments, "null" if there are no arguments*/
+/* structure to split the request into path[] and args[]
+ * path[0] contains the unsplitted path
+ * args[0] contains the unsplitted arguments, "null" if there are no arguments
+ * 
+ * args[] and val[] are inyective, this means, val[n] will contain the value for key arg[n]
+ * i am too lazy to implement a proper hash, might do some time later.
+ */
+
 struct URI_REQUEST {
     char path[MAX_PATH_SIZE][MAX_CHAR_SIZE];
     char arg[MAX_ARGS_SIZE][MAX_CHAR_SIZE]; 
+    char val[MAX_ARGS_SIZE][MAX_CHAR_SIZE]; 
 };
 
 
@@ -124,7 +129,8 @@ int parseSanitizeUri(struct URI *u) {
 
     /*Remove the trailing &*/
     if ( strcmp(u->req.arg[0], "null") != 0 && u->req.arg[0][lastArg] == '&') {                
-        u->req.arg[0][lastArg] = '\0';  
+        u->req.arg[0][lastArg] = '\0'; 
+        strcpy(u->req.val[0], u->req.arg[0]); //copy into the value. 
     }
 
 
@@ -133,12 +139,31 @@ int parseSanitizeUri(struct URI *u) {
 
 /*parse the path and arguments according*/
 int parseRequest(struct URI *u) {
-    
+   
+
+    printf("START: parseRequest\n"); 
     char *pathToken = "/";
     char *argToken = "&";
 
-    /*todo, split the path and arg in each field*/ 
+    //make copy so we leave u->req.path[0] and u->req.arg[0]/u->req.val[0] alone.
+    char reqPath[MAX_CHAR_SIZE];
+    strcpy(reqPath, u->req.path[0]);
 
+    //first token for '/'    
+    char *currp = strtok(reqPath, pathToken);
+    printf("First Token: %s\n", currp);
+
+    int i=1; //starting position for URI.args
+    while (currp) {
+           printf("\n\tCurrent Token: %s\tNumber: %d\n", currp, i);
+
+           strcpy(u->req.path[i], currp);  //copy the rest at each / interval.
+           i++; //increment the path.
+           currp = strtok(NULL, pathToken); //get next token.
+    
+    }
+
+    printf("END: parseRequest\n"); 
     return 1;
 }
 
