@@ -49,11 +49,11 @@ int parseGetFirstLine(char *firstline, char *s) {
     return 1;
 }
 
-/* check if the request, contains arguments (look for ? symbol)*/
-int parseContainsArgs(char *s) {
+/* check if the request, contains arguments (look for a given character)*/
+int parseContainsChar(char *s, char c) {
     int i=0;
     for(i=0; i<= strlen(s); i++) {
-        if (s[i] == '?') 
+        if (s[i] == c) 
             return 1;
     }
     return 0;
@@ -92,12 +92,18 @@ int parseSplitRequest(struct URI *u) {
 
  
     /* first split the request via args and path */
-    if ( parseContainsArgs(u->request) ) {
+    if ( parseContainsChar(u->request, '?') ) {
         /*split the ? first if we got them*/
         char *path = strtok(u->request, separator);
         char *args = strtok(NULL, separator);
         strcpy(u->req.path[0], path);
-        strcpy(u->req.arg[0], args);
+       
+        if ( args == NULL) {
+            strcpy(u->req.arg[0], "null");
+        } else { 
+            strcpy(u->req.arg[0], args);
+        }
+
     } else {
         /*default values*/
         strcpy(u->req.path[0], u->request);
@@ -155,7 +161,6 @@ int parseRequest(struct URI *u) {
 
     //first token for '/'    
     char *currp = strtok(reqPath, pathToken);
-    printf("First Token: %s\n", currp);
 
     int i=1; //starting position for URI.args
     while (currp) {
@@ -164,7 +169,44 @@ int parseRequest(struct URI *u) {
            currp = strtok(NULL, pathToken); //get next token.
     }
 
-    /* ARGS PART */
+
+/* ARGS PART */
+char argsPath[MAX_CHAR_SIZE];
+strcpy(argsPath, u->req.arg[0]);
+
+    char *currargs = strtok(argsPath, argToken);
+    int j = 0;
+    char arguments[MAX_ARGS_SIZE][MAX_CHAR_SIZE];
+
+    //if we have more than 1 arg keep tokenizing.
+    if (parseContainsChar(u->req.arg[0], '&') ) {
+        while(currargs) {
+            strcpy(arguments[j], currargs);
+            /*Advance pointer*/
+            currargs = strtok(NULL, argToken);
+            j++;        
+        }
+    }
+
+        int k=0;
+        for(k=0 ;  k < j; k++) {
+            /* parse each element in the array 
+             separe left and right */
+            char *left, *right;
+
+            if ( parseContainsChar(arguments[k], '=') ) {
+                left = strtok(arguments[k], "="); 
+                right = strtok(NULL, "=");
+            } else {
+                left = arguments[k];
+                right = ""; //harcoded true...
+            }
+
+            printf("%s = %s\n", left, right);
+
+            strcpy(u->req.arg[k+1], left);  //K+1, since arg[0] contains the whole argument string
+            strcpy(u->req.val[k+1], right);
+        }
 
     printf("END: parseRequest\n"); 
     return 1;
