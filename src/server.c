@@ -5,6 +5,7 @@
 */
 
 /* Based on http://tinyhack.com/2014/03/12/implementing-a-web-server-in-a-single-printf-call/ */
+#include<unistd.h>
 #include<stdio.h>
 #include<string.h>
 #include<arpa/inet.h>
