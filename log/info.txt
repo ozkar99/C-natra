@@ -336,3 +336,503 @@ Content-Length: 18
 
 user=ozkar&id=test
 
+Server: 5 Got:
+POST / HTTP/1.1
+User-Agent: curl/7.36.0
+Host: 127.0.0.1:30001
+Accept: */*
+
+À¤F™ÿ
+
+Server: 6 Got:
+POST /holi/amigos HTTP/1.1
+User-Agent: curl/7.36.0
+Host: 127.0.0.1:30001
+Accept: */*
+
+^E
+
+Server: 5 Got:
+GET /holi/amigos HTTP/1.1
+User-Agent: curl/7.36.0
+Host: 127.0.0.1:30001
+Accept: */*
+
+a^E
+
+Server: 5 Got:
+GET / HTTP/1.1
+User-Agent: curl/7.36.0
+Host: 127.0.0.1:30001
+Accept: */*
+
+
+
+Server: 6 Got:
+GET /hola/mundo/ HTTP/1.1
+User-Agent: curl/7.36.0
+Host: 127.0.0.1:30001
+Accept: */*
+
+õ…f
+
+Server: 5 Got:
+GET /hola/mundo HTTP/1.1
+User-Agent: curl/7.36.0
+Host: 127.0.0.1:30001
+Accept: */*
+
+¶õ…f
+
+Server: 7 Got:
+POST /hola/mundo HTTP/1.1
+User-Agent: curl/7.36.0
+Host: 127.0.0.1:30001
+Accept: */*
+
+õ…f
+
+Server: 6 Got:
+POST /hola/mundo/ HTTP/1.1
+User-Agent: curl/7.36.0
+Host: 127.0.0.1:30001
+Accept: */*
+
+…f
+
+Server: 6 Got:
+POST /hola/mundo/?arga=lol&argb=lel HTTP/1.1
+User-Agent: curl/7.36.0
+Host: 127.0.0.1:30001
+Accept: */*
+
+
+
+Server: 5 Got:
+GET /hola/mundo/?arga=lol&argb=lel HTTP/1.1
+User-Agent: curl/7.36.0
+Host: 127.0.0.1:30001
+Accept: */*
+
+f
+
+Server: 4 Got:
+GET / HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+
+Server: 5 Got:
+GET /hello/world?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+Þ
+
+Server: 6 Got:
+GET /favicon.ico HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: image/png,image/*;q=0.8,*/*;q=0.5
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+ncoding: gzip, deflate
+Connection: keep-alive
+
+Þ
+
+Server: 5 Got:
+GET /hello/world?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 7 Got:
+GET /favicon.ico HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+tion: keep-alive
+
+Þ
+
+Server: 5 Got:
+GET /hello/world?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 5 Got:
+GET /hello/world HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+tion: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+
+Server: 5 Got:
+GET /hello/world?happy=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+
+Server: 4 Got:
+GET /hello/world?happy=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+ÿ
+
+Server: 6 Got:
+GET /hello/world?happy=yes&tired=no HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+FŒ
+
+Server: 5 Got:
+GET /hello/world?happy=yes&tired=no HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world?happy=yes&tired=no HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world?happy=yes&tired=no HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 5 Got:
+GET /hello/world?happy=yes&tired HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+ion: keep-alive
+Cache-Control: max-age=0
+
+
+
+Server: 6 Got:
+GET /hello/world? HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+ keep-alive
+
+
+Cache-Control: max-age=0
+
+
+
+Server: 4 Got:
+GET /hello/world?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+u
+
+Server: 5 Got:
+GET /hello/world?happy=yes&tired HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+
+u
+
+Server: 4 Got:
+GET /hello/world HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+tion: keep-alive
+
+u
+
+Server: 6 Got:
+GET /hello/world.dsjal HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+-alive
+
+
+
+u
+
+Server: 5 Got:
+GET /hello/world/? HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+keep-alive
+
+
+
+u
+
+Server: 4 Got:
+GET /hello/world/?happy=yes&tired=yes HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+
+Server: 5 Got:
+GET /hello/world/? HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+ion: keep-alive
+
+
+
+Server: 4 Got:
+GET /hello/world/? HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+
+Server: 4 Got:
+GET /hello/world/? HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+
+Server: 5 Got:
+GET /hello/world/?happy=yes&tired=no HTTP/1.1
+Host: 127.0.0.1:30001
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+/
+
