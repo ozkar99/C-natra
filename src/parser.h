@@ -132,7 +132,7 @@ int parseSanitizeUri(struct URI *u) {
     int lastArg = strlen(u->req.arg[0]) - 1;
 
     /*Insert always the trailing slash*/
-    if (u->req.path[0][lastPath] != '/' && u->req.path[0] != "/") { 
+    if (u->req.path[0][lastPath] != '/' && u->req.path[0] != '/') { 
         u->req.path[0][lastPath+1] = '/';
     }
 
