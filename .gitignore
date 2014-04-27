@@ -20,4 +20,4 @@
 
 
 #logfile
-log/info.txt
+*.log/info.txt
