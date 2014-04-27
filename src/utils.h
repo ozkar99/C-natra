@@ -2,6 +2,9 @@
 #define __UTILSH__
 
 #include<stdlib.h>
+#include<string.h>
+#include<stdio.h>
+#include<unistd.h>
 
 #define MAX_CHAR_SIZE 1024
 #define MAX_PACKET_SIZE 512
