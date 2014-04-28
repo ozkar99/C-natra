@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall
+CFLAGS=-Wall -std=c11
 SOURCES= src/utils.h src/parser.h src/server.c
 
 all: cnatra
