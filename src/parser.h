@@ -87,10 +87,6 @@ int parseSplitRequest(struct URI *u) {
 
     char *separator = "?";
 
-    char pathStr[MAX_CHAR_SIZE];
-    char argStr[MAX_CHAR_SIZE];
-
- 
     /* first split the request via args and path */
     if ( parseContainsChar(u->request, '?') ) {
         /*split the ? first if we got them*/
