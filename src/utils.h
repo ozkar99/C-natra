@@ -29,12 +29,11 @@ int logWrite(char *s) {
 
 /*This function sends html to the sockfd server*/
 int serverSendHTML(int cfd, char *html) {
-
     char *ok = "HTTP/1.0 200\r\nContent-type:text/html\r\n\r\n";
 
     char resp[MAX_CHAR_SIZE];
-    strcpy(resp, ok);
-    strcat(resp, html);
+    strncpy(resp, ok, MAX_CHAR_SIZE);
+    strncat(resp, html, MAX_CHAR_SIZE);
 
     /*send to the server*/
     write(cfd, resp, strlen(resp));
