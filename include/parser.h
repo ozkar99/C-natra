@@ -1,6 +1,6 @@
 /*This will parse the url*/
-#ifndef __PARSERH__
-#define __PARSERH__
+#ifndef PARSER_H
+#define PARSER_H
 
 #define MAX_ARGS_SIZE 50
 #define MAX_PATH_SIZE 50

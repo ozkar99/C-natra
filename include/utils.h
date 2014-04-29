@@ -1,5 +1,5 @@
-#ifndef __UTILSH__
-#define __UTILSH__
+#ifndef UTILS_H
+#define UTILS_H
 
 #define MAX_CHAR_SIZE 1024
 #define MAX_PACKET_SIZE 512
