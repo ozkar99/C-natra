@@ -1,5 +1,5 @@
 /* Moreno Garza Oscar
- * This is the web-server in an effor to port a small set of the Sinatra
+ * This is the web-server in an effort to port a small set of the Sinatra
  * framework for ruby into C.
  *
  * Based on http://tinyhack.com/2014/03/12/implementing-a-web-server-in-a-single-printf-call/ 
@@ -14,17 +14,19 @@
 
 #include "utils.h"
 #include "parser.h"
+#include "server.h"
 
-static void server_loop(int socketfd);
-static void server_pkg_handler(int cfd, char *packet);
-static int server_init(const char *server_ip, uint16_t port);
+static int init(const char *server_ip, uint16_t port);
+static void loop(int socketfd);
+static void pkg_handler(int cfd, char *packet);
+static void send_html(int cfd, const char *html);
 
 void server_run(const char *server_ip, uint16_t port) {
-    int socketfd = server_init(server_ip, port);
-    server_loop(socketfd);
+    int socketfd = init(server_ip, port);
+    loop(socketfd);
 }
 
-static int server_init(const char *server_ip, uint16_t port) {
+static int init(const char *server_ip, uint16_t port) {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     int backlog = 5;
     struct sockaddr_in server_addr = { 0 };
@@ -41,40 +43,44 @@ static int server_init(const char *server_ip, uint16_t port) {
     return sockfd;
 }
 
-/* Handle the package */
-static void server_pkg_handler(int cfd, char *packet) {
+static void loop(int sockfd) {   
+    while (true) {
+        int cfd = accept(sockfd, 0, 0);
+        char buffer[MAX_CHAR_SIZE];
+        int bufferbytes = read(cfd, buffer, MAX_CHAR_SIZE);
+
+        if (fork() == 0 && bufferbytes > 0) {
+            pkg_handler(cfd, buffer);
+            shutdown(cfd, SHUT_RDWR);
+            close(cfd);
+        }
+    }
+}
+
+static void pkg_handler(int cfd, char *packet) {
     char s[MAX_CHAR_SIZE];
 
     fflush(stdin);
     sprintf(s, "Server: %d Got:\n%s\n", cfd, packet);
-    logWrite(s);
+    log_write(s);
 
     struct URI u = parseURI(packet);
 
     if ( strcmp(u.method, "GET") == 0){
-        serverSendHTML(cfd, "I GOT A GET");
+        send_html(cfd, "I GOT A GET");
     } else if ( strcmp(u.method, "POST") ==0 ) {
-        serverSendHTML(cfd, "I GOT A POST");
+        send_html(cfd, "I GOT A POST");
     } else {
-        serverSendHTML(cfd, "<html><h1>DEFAULT SHIT</H1>");
+        send_html(cfd, "<html><h1>DEFAULT SHIT</H1>");
     }
 }
 
-/* Listen for connection and serve them*/
-static void server_loop(int sockfd) {    
-    while (true) {
-        int cfd  = accept(sockfd, 0, 0);
-        char buffer[MAX_CHAR_SIZE];
-        int bufferbytes = read(cfd, buffer,  MAX_CHAR_SIZE); //get shit.
-
-        /*fork this nigga process, if we got actual content*/
-        if (fork() ==0 && bufferbytes > 0) {
-            server_pkg_handler(cfd, buffer); //handle shit.
-            shutdown(cfd, SHUT_RDWR); //close connection.
-            close(cfd); //ditto
-        }
-    }  
+static void send_html(int cfd, const char *html) {
+    char *http_code = "HTTP/1.0 200\r\nContent-type:text/html\r\n\r\n";
+    char resp[MAX_CHAR_SIZE];
+    
+    strncpy(resp, http_code, MAX_CHAR_SIZE);
+    strncat(resp, html, MAX_CHAR_SIZE);
+    
+    write(cfd, resp, strlen(resp));
 }
-
-
-
