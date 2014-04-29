@@ -1,6 +1,7 @@
 # OS X
 .DS_Store
 Info.plist
+cnatra.dSYM
 
 # Object files
 *.o
