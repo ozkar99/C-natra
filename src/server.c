@@ -1,7 +1,8 @@
 #ifndef __SERVERH__
 #define __SERVERH__
 /* Moreno Garza Oscar
-*  This is the web-server in an effor to port a small set of the Sinatra framework for ruby into C.
+ * This is the web-server in an effor to port a small set of the Sinatra
+ * framework for ruby into C.
 */
 
 /* Based on http://tinyhack.com/2014/03/12/implementing-a-web-server-in-a-single-printf-call/ */
@@ -13,9 +14,8 @@
 #include "utils.h"
 #include "parser.h"
 
-/*This function starts the server, return socket file descriptor*/
+/* This function starts the server, return socket file descriptor */
 int serverStart(char *servip, int port) {
- 
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     int backlog = 5;
 
@@ -28,8 +28,7 @@ int serverStart(char *servip, int port) {
     bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
     listen(sockfd, backlog);
 
-
-    /*lame sinatra suckup*/
+    /*Lame sinatra suckup*/
     char servchar[MAX_CHAR_SIZE];
     sprintf(servchar, "http://%s:%d/", servip, port);
     printf("C-natra has taken the stage...%s\n", servchar);
@@ -54,10 +53,6 @@ void serverPackageHandler(int cfd, char *packet) {
     } else {
         serverSendHTML(cfd, "<html><h1>DEFAULT SHIT</H1>");
     }
-
-    /*parsing tests*/
-    //printf("\n\n\n\nParsing Test in server.c:\n");
-    //printf("Method: %s\nRequestPath: %s\nRequestArgs: %s\nProtocol: %s\n", u.method, u.req.path, u.req.arg, u.protocol);
 }
 
 /* Listen for connection and serve them*/
@@ -76,10 +71,7 @@ void serverLoop(int sockfd) {
     }  
 }
 
-/************************* main ***********************/
-/* main routine */ 
 int main(int argc, char *argv[]) {
-
     int socketfd = serverStart("127.0.0.1", 30001);
     serverLoop(socketfd);
 

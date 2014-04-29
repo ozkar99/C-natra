@@ -1,10 +1,11 @@
 CC=gcc
-CFLAGS=-Wall -std=c11
-SOURCES= src/utils.h src/parser.h src/server.c
+CFLAGS=-Wall -std=c11 -g
+SOURCES=src/server.c
+LIBS=src/parser.h src/utils.h
 
 all: cnatra
 
-cnatra: $(SOURCES)
+cnatra: $(SOURCES) $(LIBS)
 	$(CC) $(CFLAGS) $(SOURCES) -o $@ 
 
 clean:

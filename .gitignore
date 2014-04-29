@@ -21,4 +21,4 @@ cnatra
 
 
 #logfile
-*.log/info.txt
+log/
