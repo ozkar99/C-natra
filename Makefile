@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -std=c11 -g
-SOURCES=src/server.c src/parser.c
+SOURCES=src/server.c src/parser.c src/utils.c
 LIBS=src/parser.h src/utils.h
 
 all: cnatra
