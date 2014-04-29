@@ -1,37 +1,31 @@
-#ifndef __SERVERH__
-#define __SERVERH__
 /* Moreno Garza Oscar
  * This is the web-server in an effor to port a small set of the Sinatra
  * framework for ruby into C.
-*/
+ *
+ * Based on http://tinyhack.com/2014/03/12/implementing-a-web-server-in-a-single-printf-call/ 
+ */
 
-/* Based on http://tinyhack.com/2014/03/12/implementing-a-web-server-in-a-single-printf-call/ */
-#include<unistd.h>
-#include<stdio.h>
-#include<string.h>
-#include<arpa/inet.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <arpa/inet.h>
 
 #include "utils.h"
 #include "parser.h"
 
-/* This function starts the server, return socket file descriptor */
-int serverStart(char *servip, int port) {
+int serverStart(const char *server_ip, int port) {
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     int backlog = 5;
-
-    /* bind this mofo */
-    struct sockaddr_in serv_addr;
-    memset((char *)&serv_addr, '\0', sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = inet_addr(servip);
-    serv_addr.sin_port = htons(port);
-    bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
+    struct sockaddr_in server_addr = { 0 };
+    
+    server_addr.sin_family      = AF_INET;
+    server_addr.sin_addr.s_addr = inet_addr(server_ip);
+    server_addr.sin_port        = htons(port);
+    
+    bind(sockfd, (const struct sockaddr *)&server_addr, sizeof(server_addr));
     listen(sockfd, backlog);
-
-    /*Lame sinatra suckup*/
-    char servchar[MAX_CHAR_SIZE];
-    sprintf(servchar, "http://%s:%d/", servip, port);
-    printf("C-natra has taken the stage...%s\n", servchar);
+    
+    printf("C-natra has taken the stage... http://%s:%d/\n", server_ip, port);
 
     return sockfd;
 }
@@ -77,5 +71,3 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-
-#endif

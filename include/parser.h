@@ -49,4 +49,5 @@ int parseSanitizeUri(struct URI *u);
 int parseRequest(struct URI *u);
 
 struct URI parseURI(char *s);
+
 #endif

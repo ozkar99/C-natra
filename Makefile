@@ -1,12 +1,12 @@
 CC=gcc
 CFLAGS=-Wall -std=c11 -g
 SOURCES=src/server.c src/parser.c src/utils.c
-LIBS=src/parser.h src/utils.h
+INCLUDE_DIR=include/
 
 all: cnatra
 
-cnatra: $(SOURCES) $(LIBS)
-	$(CC) $(CFLAGS) $(SOURCES) -o $@ 
+cnatra:
+	$(CC) $(CFLAGS) $(SOURCES) -I$(INCLUDE_DIR) -o $@ 
 
 clean:
 	rm cnatra

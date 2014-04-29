@@ -1,7 +1,10 @@
-#include<stdlib.h>
-#include<stdio.h>
-#include<string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "utils.h"
+#include "parser.h"
+
 
 /*grab the first line of a string, store in "firstline"*/
 int parseGetFirstLine(char *firstline, char *s) {
