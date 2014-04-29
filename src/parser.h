@@ -2,11 +2,6 @@
 #ifndef __PARSERH__
 #define __PARSERH__
 
-#include<stdlib.h>
-#include<stdio.h>
-#include<string.h>
-#include "utils.h"
-
 #define MAX_ARGS_SIZE 50
 #define MAX_PATH_SIZE 50
 
@@ -35,211 +30,23 @@ struct URI {
     struct URI_REQUEST req; //request path and args.
 };
 
-
-
 /*grab the first line of a string, store in "firstline"*/
-int parseGetFirstLine(char *firstline, char *s) {
-    int i = 0;
-    while(s[i] != '\n'){
-        firstline[i] = s[i];
-        i++;
-    }
-
-    if (i > MAX_CHAR_SIZE) {
-        i = MAX_CHAR_SIZE;
-    }
-    
-    firstline[i] = '\0';
-    return 1;
-}
+int parseGetFirstLine(char *firstline, char *s);
 
 /* check if the request, contains arguments (look for a given character)*/
-int parseContainsChar(char *s, char c) {
-    int i = 0;
-
-    for(i = 0; i <= strlen(s); i++) {
-        if (s[i] == c) 
-            return 1;
-    }
-
-    return 0;
-}
-
+int parseContainsChar(char *s, char c);
 
 /* spit method, request, protocol*/
-int parseSplitMRP(struct URI *uri,  char *s) {
-    char *c = " \t";
-    
-    char *method = strtok(s, c); //only send string on first call
-    char *request = strtok(NULL, c);
-    char *protocol = strtok(NULL, c);
-
-    if (method != NULL && 
-        request != NULL && 
-        protocol != NULL)  
-    {
-        strncpy(uri->method, method, MAX_CHAR_SIZE);
-        strncpy(uri->request, request, MAX_CHAR_SIZE);
-        strncpy(uri->protocol, protocol, MAX_CHAR_SIZE);
-        return 1;
-    } else {
-        return 0;
-    }
-}
+int parseSplitMRP(struct URI *uri,  char *s);
 
 /*split the request*/
-int parseSplitRequest(struct URI *u) {
-    char *separator = "?";
-
-    /* first split the request via args and path */
-    if ( parseContainsChar(u->request, '?') ) {
-        /*split the ? first if we got them*/
-        char *path = strtok(u->request, separator);
-        char *args = strtok(NULL, separator);
-        strncpy(u->req.path[0], path, MAX_CHAR_SIZE);
-       
-        if (args == NULL) {
-            strncpy(u->req.arg[0], "null", MAX_CHAR_SIZE);
-        } else { 
-            strncpy(u->req.arg[0], args, MAX_CHAR_SIZE);
-        }
-
-    } else {
-        /*default values*/
-        strncpy(u->req.path[0], u->request, MAX_CHAR_SIZE);
-        strncpy(u->req.arg[0], "null\0", MAX_CHAR_SIZE);
-    }
-
-    if( strncmp(u->method, "GET", 3) == 0 ) {
-        /* GET*/
-        /* get code handling here */
-    } else if ( strncmp(u->method, "POST", 4) == 0) {
-        /*POST*/
-        /* post code here */
-        /* args are not on the request but somewhere else on the http-request */
-    } else {
-        /*not post neither get code here*/
-    }
-
-    return 1;
-}
+int parseSplitRequest(struct URI *u);
 
 /*sanitize the path and arguments*/
-int parseSanitizeUri(struct URI *u) {
-    int lastPath = strlen(u->req.path[0]) - 1;
-    int lastArg = strlen(u->req.arg[0]) - 1;
-
-    /*Insert always the trailing slash*/
-    if (u->req.path[0][lastPath] != '/' && strncmp(u->req.path[0], "/", 2) != 0) { 
-        u->req.path[0][lastPath+1] = '/';
-    }
-
-    /*Remove the trailing &*/
-    if ( strncmp(u->req.arg[0], "null", 4) != 0 && u->req.arg[0][lastArg] == '&') {                
-        u->req.arg[0][lastArg] = '\0'; 
-        strncpy(u->req.val[0], u->req.arg[0], MAX_CHAR_SIZE); //copy into the value. 
-    }
-
-    return 1;
-}
+int parseSanitizeUri(struct URI *u);
 
 /*parse the path and arguments according*/
-int parseRequest(struct URI *u) {
-    char *pathToken = "/";
-    char *argToken = "&";
+int parseRequest(struct URI *u);
 
-    printf("START: parseRequest\n"); 
-
-    /* PATH PART*/
-    //make copy so we leave u->req.path[0] and u->req.arg[0]/u->req.val[0] alone.
-    char reqPath[MAX_CHAR_SIZE];
-    strncpy(reqPath, u->req.path[0], MAX_CHAR_SIZE);
-
-    //first token for '/'    
-    char *currp = strtok(reqPath, pathToken);
-
-    int i=1; //starting position for URI.args
-    while (currp) {
-        strncpy(u->req.path[i], currp, MAX_CHAR_SIZE);  //copy the current token at each '/' interval.
-        i++; //increment the path.
-        currp = strtok(NULL, pathToken); //get next token.
-    }
-
-    /* ARGS PART */
-    char argsPath[MAX_CHAR_SIZE];
-    strncpy(argsPath, u->req.arg[0], MAX_CHAR_SIZE);
-
-    char *currargs = strtok(argsPath, argToken);
-    int j = 0;
-    char arguments[MAX_ARGS_SIZE][MAX_CHAR_SIZE];
-
-    //if we have more than 1 arg keep tokenizing.
-    if (parseContainsChar(u->req.arg[0], '&') ) {
-        while(currargs) {
-            strcpy(arguments[j], currargs);
-            /*Advance pointer*/
-            currargs = strtok(NULL, argToken);
-            j++;        
-        }
-    }
-
-    int k=0;
-    for(k=0 ;  k < j; k++) {
-        /* parse each element in the array 
-         * separe left and right 
-         */
-        char *left, *right;
-
-        if ( parseContainsChar(arguments[k], '=') ) {
-            left = strtok(arguments[k], "="); 
-            right = strtok(NULL, "=");
-        } else {
-            left = arguments[k];
-            right = ""; //harcoded true...
-        }
-
-        printf("%s = %s\n", left, right);
-
-        strcpy(u->req.arg[k+1], left);  //K+1, since arg[0] contains the whole argument string
-        strcpy(u->req.val[k+1], right);
-    }
-
-    printf("END: parseRequest\n"); 
-    return 1;
-}
-
-
-/* parse the uri, main entry point */
-struct URI parseURI(char *s) {
-    struct URI uri;
-    char x[MAX_CHAR_SIZE];
-    int status;
-
-    status = parseGetFirstLine(x, s);
-
-    /*tokenize into method, request and protocol*/
-    if (status == 1) 
-        status = parseSplitMRP(&uri, x); 
-
-    /*split the request in path and args*/
-    if (status == 1) 
-        status = parseSplitRequest(&uri);
-
-    /*sanitize the uri*/
-    if (status ==1)
-        status = parseSanitizeUri(&uri);
-
-    /*split the reqeust into path[] and arg[]*/
-    if(status ==1)
-        status = parseRequest(&uri);
-
-    /*debug shit*/
-    printf("\n\nparser.h\n");
-    printf("Method: %s\nRequestPath: %s\nRequestArgs: %s\nProtocol: %s\n",
-        uri.method, uri.req.path[0], uri.req.arg[0], uri.protocol);
-    /*end debug shit*/
-
-    return uri;
-
-}
+struct URI parseURI(char *s);
 #endif
