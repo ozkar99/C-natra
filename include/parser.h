@@ -5,6 +5,7 @@
 #define MAX_ARGS_SIZE 50
 #define MAX_PATH_SIZE 50
 #define MAX_CHAR_SIZE 1024
+#define MAX_EXT_SIZE 10
 
 /* 
  * structure to split the request into path[] and args[]
@@ -48,6 +49,13 @@ int parseSanitizeUri(struct URI *u);
 
 /*parse the path and arguments according*/
 int parseRequest(struct URI *u);
+
+/*check if the file is a chtml file*/
+int parseCheckCHTML(struct URI u);
+
+/*returns the extension of a file, null if its a directory*/
+char *parseGetExtension(struct URI u);
+
 
 struct URI parseURI(char *s);
 

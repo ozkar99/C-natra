@@ -4,6 +4,35 @@
 #include "utils.h"
 #include "parser.h"
 
+#define DEBUG_FLAG 1
+
+/*return extension of a file*/
+char *parseGetExtension(struct URI u) {
+
+    char filename[MAX_CHAR_SIZE];
+    strncpy(filename, u.req.path[0], MAX_CHAR_SIZE);    
+
+    char *dot = strrchr(filename, '.');
+    if(!dot || dot == filename) return "";
+    
+    char *ext = malloc(MAX_EXT_SIZE); //allocate memory so the variable doesnt get destroyed later on.
+    strncpy(ext, dot+1, strlen(dot+1) - 1); //remove the last char which is a '/' due to the sanitizer being a crackass.
+
+    return ext;
+}
+
+
+/*check if file is a CHTML file*/
+int parseCheckCHTML(struct URI u) {
+    
+    if ( (strncmp(parseGetExtension(u), "chtml", 5) == 0)
+      || (strncmp(parseGetExtension(u), "CHTML", 5) == 0) ) {
+        return 1;
+    }
+    
+    return 0;
+}
+
 
 /*grab the first line of a string, store in "firstline"*/
 int parseGetFirstLine(char *firstline, char *s) {
@@ -105,8 +134,6 @@ int parseRequest(struct URI *u) {
     char *pathToken = "/";
     char *argToken = "&";
 
-    printf("START: parseRequest\n"); 
-
     /* PATH PART*/
     //make copy so we leave u->req.path[0] and u->req.arg[0]/u->req.val[0] alone.
     char reqPath[MAX_CHAR_SIZE];
@@ -161,7 +188,6 @@ int parseRequest(struct URI *u) {
         strcpy(u->req.val[k+1], right);
     }
 
-    printf("END: parseRequest\n"); 
     return 1;
 }
 
@@ -191,10 +217,10 @@ struct URI parseURI(char *s) {
         status = parseRequest(&uri);
 
     /*debug shit*/
-    printf("\n\nparser.h\n");
-    printf("Method: %s\nRequestPath: %s\nRequestArgs: %s\nProtocol: %s\n",
-        uri.method, uri.req.path[0], uri.req.arg[0], uri.protocol);
-    /*end debug shit*/
+    if ( DEBUG_FLAG == 1) {
+        printf("\n\nparser.h\n");
+        printf("Extension: %s\n", parseGetExtension(uri));
+    }
 
     return uri;
 
