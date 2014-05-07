@@ -4,6 +4,7 @@
 
 #define MAX_ARGS_SIZE 50
 #define MAX_PATH_SIZE 50
+#define MAX_CHAR_SIZE 1024
 
 /* 
  * structure to split the request into path[] and args[]

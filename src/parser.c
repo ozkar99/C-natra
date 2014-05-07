@@ -78,17 +78,6 @@ int parseSplitRequest(struct URI *u) {
         strncpy(u->req.arg[0], "null\0", MAX_CHAR_SIZE);
     }
 
-    if( strncmp(u->method, "GET", 3) == 0 ) {
-        /* GET*/
-        /* get code handling here */
-    } else if ( strncmp(u->method, "POST", 4) == 0) {
-        /*POST*/
-        /* post code here */
-        /* args are not on the request but somewhere else on the http-request */
-    } else {
-        /*not post neither get code here*/
-    }
-
     return 1;
 }
 

@@ -14,6 +14,7 @@
 
 #include "utils.h"
 #include "parser.h"
+#include "handler.h"
 
 static void server_loop(int socketfd);
 static void server_pkg_handler(int cfd, char *packet);
@@ -51,13 +52,9 @@ static void server_pkg_handler(int cfd, char *packet) {
 
     struct URI u = parseURI(packet);
 
-    if ( strcmp(u.method, "GET") == 0){
-        serverSendHTML(cfd, "I GOT A GET");
-    } else if ( strcmp(u.method, "POST") ==0 ) {
-        serverSendHTML(cfd, "I GOT A POST");
-    } else {
-        serverSendHTML(cfd, "<html><h1>DEFAULT SHIT</H1>");
-    }
+    /*main entry point for routing*/
+    char *response = handlerUri(u);
+    serverSendHTML(cfd, response);
 }
 
 /* Listen for connection and serve them*/
