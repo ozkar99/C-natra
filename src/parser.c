@@ -4,8 +4,6 @@
 #include "utils.h"
 #include "parser.h"
 
-#define DEBUG_FLAG 1
-
 /*return extension of a file*/
 char *parseGetExtension(struct URI u) {
 
@@ -216,12 +214,10 @@ struct URI parseURI(char *s) {
     if(status ==1)
         status = parseRequest(&uri);
 
-    /*debug shit*/
-    if ( DEBUG_FLAG == 1) {
+    /*DEBUG
         printf("\n\nparser.h\n");
         printf("Extension: %s\n", parseGetExtension(uri));
-    }
-
+    */
     return uri;
 
 }

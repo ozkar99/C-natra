@@ -6,5 +6,7 @@
 
 int logWrite(char *s);
 int serverSendHTML(int cfd, char *html);
+char *getFile(char *s);
+int fileExists(char *s);
 
 #endif
